@@ -1,7 +1,7 @@
 package com.allgoosd.security.controller;
 
 
-import com.allgoosd.security.config.TokenConfig;
+import com.allgoosd.security.config.security.TokenConfig;
 import com.allgoosd.security.dto.request.LoginRequest;
 import com.allgoosd.security.dto.request.RegisterUserRequest;
 import com.allgoosd.security.dto.response.LoginResponse;

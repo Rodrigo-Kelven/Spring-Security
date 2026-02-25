@@ -1,4 +1,4 @@
-package com.allgoosd.security.config;
+package com.allgoosd.security.config.security;
 
 
 import com.allgoosd.security.repository.UserRepository;

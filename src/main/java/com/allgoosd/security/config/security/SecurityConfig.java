@@ -1,4 +1,4 @@
-package com.allgoosd.security.config;
+package com.allgoosd.security.config.security;
 
 import jakarta.servlet.DispatcherType;
 import org.springframework.context.annotation.Bean;
@@ -29,7 +29,7 @@ public class SecurityConfig {
                         .dispatcherTypeMatchers(DispatcherType.ERROR).permitAll()
 
                         .requestMatchers(HttpMethod.GET,
-                                "/test"
+                                "/hello"
                         ).permitAll()
 
                         .requestMatchers(HttpMethod.POST,
