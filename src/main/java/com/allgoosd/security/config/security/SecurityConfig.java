@@ -25,18 +25,12 @@ public class SecurityConfig {
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorized -> authorized
-
                         .dispatcherTypeMatchers(DispatcherType.ERROR).permitAll()
-
-                        .requestMatchers(HttpMethod.GET,
-                                "/hello"
-                        ).permitAll()
-
+                        .requestMatchers(HttpMethod.GET,"/hello").permitAll()
                         .requestMatchers(HttpMethod.POST,
                                 "/auth/login",
                                 "/auth/register"
                         ).permitAll()
-
                         .anyRequest().authenticated()
                 )
                 .build();

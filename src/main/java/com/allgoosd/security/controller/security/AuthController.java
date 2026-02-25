@@ -1,4 +1,4 @@
-package com.allgoosd.security.controller;
+package com.allgoosd.security.controller.security;
 
 
 import com.allgoosd.security.config.security.TokenConfig;

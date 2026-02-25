@@ -1,0 +1,25 @@
+
+services:
+  service-products-api:
+    image: service-products-api:1.0.0
+    container_name: application-allgoods-service-security
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    ports:
+      - "${SERVER_PORT:-8181}:8181"
+    environment:
+      JWT_SECRET: ${JWT_SECRET}
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
+      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
+    networks:
+      - application-allgoods-service-security
+
+networks:
+  application-allgoods-service-security:
+    driver: bridge
+    name: application-allgoods-service-security
+    internal: false
+

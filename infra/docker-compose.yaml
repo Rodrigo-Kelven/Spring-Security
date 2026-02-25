@@ -13,7 +13,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
-      - database
+      - application-allgoods-service-security
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "postgres"]
       interval: 30s
@@ -33,13 +33,13 @@ services:
     depends_on:
       - postgres
     networks:
-      - database
+      - application-allgoods-service-security
 
 
 networks:
-  database:
+  application-allgoods-service-security:
     driver: bridge
-    name: database
+    name: application-allgoods-service-security
     internal: false
 
 volumes:
