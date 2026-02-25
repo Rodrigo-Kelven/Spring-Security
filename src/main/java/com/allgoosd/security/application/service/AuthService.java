@@ -26,8 +26,6 @@ public class AuthService implements AuthUseCase {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final TokenConfig tokenConfig;
-
-
     private final AuthRepositoryPort authRepositoryPort;
 
 
