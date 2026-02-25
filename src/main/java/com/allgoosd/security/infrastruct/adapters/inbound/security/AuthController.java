@@ -17,9 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/auth")
 public class AuthController {
 
-
     private final AuthUseCase authUseCase;
-
 
     public AuthController(AuthUseCase authUseCase) {
         this.authUseCase = authUseCase;
