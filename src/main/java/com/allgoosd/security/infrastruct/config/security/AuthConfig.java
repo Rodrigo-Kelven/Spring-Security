@@ -1,7 +1,7 @@
-package com.allgoosd.security.config.security;
+package com.allgoosd.security.infrastruct.config.security;
 
 
-import com.allgoosd.security.repository.UserRepository;
+import com.allgoosd.security.infrastruct.persistence.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

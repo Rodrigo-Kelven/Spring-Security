@@ -1,4 +1,4 @@
-package com.allgoosd.security.config.security;
+package com.allgoosd.security.infrastruct.config.security;
 
 import jakarta.servlet.DispatcherType;
 import org.springframework.context.annotation.Bean;

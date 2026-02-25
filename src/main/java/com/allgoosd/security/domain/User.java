@@ -1,4 +1,4 @@
-package com.allgoosd.security.model;
+package com.allgoosd.security.domain;
 
 
 import jakarta.persistence.*;

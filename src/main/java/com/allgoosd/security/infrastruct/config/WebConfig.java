@@ -1,4 +1,4 @@
-package com.allgoosd.security.config;
+package com.allgoosd.security.infrastruct.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

@@ -1,6 +1,6 @@
-package com.allgoosd.security.repository;
+package com.allgoosd.security.infrastruct.persistence.repository;
 
-import com.allgoosd.security.model.User;
+import com.allgoosd.security.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;

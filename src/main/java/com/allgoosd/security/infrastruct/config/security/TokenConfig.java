@@ -1,6 +1,6 @@
-package com.allgoosd.security.config.security;
+package com.allgoosd.security.infrastruct.config.security;
 
-import com.allgoosd.security.model.User;
+import com.allgoosd.security.domain.User;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import org.springframework.beans.factory.annotation.Value;

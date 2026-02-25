@@ -1,13 +1,13 @@
-package com.allgoosd.security.controller.security;
+package com.allgoosd.security.infrastruct.adapters.inbound.security;
 
 
-import com.allgoosd.security.config.security.TokenConfig;
-import com.allgoosd.security.dto.request.LoginRequest;
-import com.allgoosd.security.dto.request.RegisterUserRequest;
-import com.allgoosd.security.dto.response.LoginResponse;
-import com.allgoosd.security.dto.response.RegisterUserResponse;
-import com.allgoosd.security.model.User;
-import com.allgoosd.security.repository.UserRepository;
+import com.allgoosd.security.infrastruct.config.security.TokenConfig;
+import com.allgoosd.security.infrastruct.dto.request.LoginRequest;
+import com.allgoosd.security.infrastruct.dto.request.RegisterUserRequest;
+import com.allgoosd.security.infrastruct.dto.response.LoginResponse;
+import com.allgoosd.security.infrastruct.dto.response.RegisterUserResponse;
+import com.allgoosd.security.domain.User;
+import com.allgoosd.security.infrastruct.persistence.repository.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

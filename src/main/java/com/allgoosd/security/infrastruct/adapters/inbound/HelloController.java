@@ -1,4 +1,4 @@
-package com.allgoosd.security.controller;
+package com.allgoosd.security.infrastruct.adapters.inbound;
 
 
 import org.springframework.web.bind.annotation.GetMapping;

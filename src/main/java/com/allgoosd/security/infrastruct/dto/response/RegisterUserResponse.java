@@ -1,4 +1,4 @@
-package com.allgoosd.security.dto.response;
+package com.allgoosd.security.infrastruct.dto.response;
 
 public record RegisterUserResponse(
         String name,
