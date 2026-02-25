@@ -3,12 +3,19 @@ package com.allgoosd.security.application.service;
 import com.allgoosd.security.application.ports.inbound.AuthUseCase;
 import com.allgoosd.security.application.ports.outbound.AuthRepositoryPort;
 import com.allgoosd.security.domain.UserModel;
+import com.allgoosd.security.infrastruct.config.security.TokenConfig;
+import com.allgoosd.security.infrastruct.dto.request.LoginRequest;
+import com.allgoosd.security.infrastruct.dto.response.LoginResponse;
 import com.allgoosd.security.infrastruct.persistence.entity.UserEntity;
 import com.allgoosd.security.infrastruct.dto.request.RegisterUserRequest;
 import com.allgoosd.security.infrastruct.dto.response.RegisterUserResponse;
 import com.allgoosd.security.infrastruct.persistence.repository.UserRepositoryConcret;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -17,13 +24,18 @@ public class AuthService implements AuthUseCase {
 
     private final UserRepositoryConcret userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final AuthenticationManager authenticationManager;
+    private final TokenConfig tokenConfig;
+
 
     private final AuthRepositoryPort authRepositoryPort;
 
 
-    public AuthService(UserRepositoryConcret userRepository, PasswordEncoder passwordEncoder, AuthRepositoryPort authRepositoryPort) {
+    public AuthService(UserRepositoryConcret userRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, TokenConfig tokenConfig, AuthRepositoryPort authRepositoryPort) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.authenticationManager = authenticationManager;
+        this.tokenConfig = tokenConfig;
         this.authRepositoryPort = authRepositoryPort;
     }
 
@@ -48,5 +60,29 @@ public class AuthService implements AuthUseCase {
                 user.getEmail()
         );
 
+    }
+
+
+    @Override
+    public ResponseEntity<?> loginUseCase(LoginRequest loginRequest){
+        try {
+            UsernamePasswordAuthenticationToken usernameAndPass =
+                    new UsernamePasswordAuthenticationToken(loginRequest.email(), loginRequest.password());
+
+            Authentication authentication = authenticationManager.authenticate(usernameAndPass);
+
+            UserEntity userEntity = (UserEntity) authentication.getPrincipal();
+
+            String token = tokenConfig.generateToken(userEntity);
+
+            return ResponseEntity.ok(new LoginResponse(token));
+
+        } catch (BadCredentialsException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("Erro: Credenciais inválidas. Por favor, verifique seu email e senha.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Erro inesperado. Tente novamente mais tarde.");
+        }
     }
 }
