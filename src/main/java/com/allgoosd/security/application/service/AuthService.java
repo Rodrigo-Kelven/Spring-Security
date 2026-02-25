@@ -31,7 +31,12 @@ public class AuthService implements AuthUseCase {
     private final AuthRepositoryPort authRepositoryPort;
 
 
-    public AuthService(UserRepositoryConcret userRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, TokenConfig tokenConfig, AuthRepositoryPort authRepositoryPort) {
+    public AuthService(UserRepositoryConcret userRepository,
+                       PasswordEncoder passwordEncoder,
+                       AuthenticationManager authenticationManager,
+                       TokenConfig tokenConfig,
+                       AuthRepositoryPort authRepositoryPort
+    ) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
