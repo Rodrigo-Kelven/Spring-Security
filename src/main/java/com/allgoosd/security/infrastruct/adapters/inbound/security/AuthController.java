@@ -1,13 +1,13 @@
 package com.allgoosd.security.infrastruct.adapters.inbound.security;
 
 
+import com.allgoosd.security.application.ports.inbound.AuthUseCase;
 import com.allgoosd.security.infrastruct.config.security.TokenConfig;
 import com.allgoosd.security.infrastruct.dto.request.LoginRequest;
 import com.allgoosd.security.infrastruct.dto.request.RegisterUserRequest;
 import com.allgoosd.security.infrastruct.dto.response.LoginResponse;
 import com.allgoosd.security.infrastruct.dto.response.RegisterUserResponse;
-import com.allgoosd.security.domain.User;
-import com.allgoosd.security.infrastruct.persistence.repository.UserRepository;
+import com.allgoosd.security.infrastruct.persistence.entity.UserEntity;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +15,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,21 +24,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/auth")
 public class AuthController {
 
-    private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final TokenConfig tokenConfig;
 
+    private final AuthUseCase authUseCase;
 
-    public AuthController(UserRepository userRepository,
-                          PasswordEncoder passwordEncoder,
-                          AuthenticationManager authenticationManager,
-                          TokenConfig tokenConfig
+
+    public AuthController(AuthenticationManager authenticationManager,
+                          TokenConfig tokenConfig, AuthUseCase authUseCase
     ) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
         this.tokenConfig = tokenConfig;
+        this.authUseCase = authUseCase;
     }
 
     @PostMapping("/login")
@@ -50,9 +46,9 @@ public class AuthController {
 
             Authentication authentication = authenticationManager.authenticate(usernameAndPass);
 
-            User user = (User) authentication.getPrincipal();
+            UserEntity userEntity = (UserEntity) authentication.getPrincipal();
 
-            String token = tokenConfig.generateToken(user);
+            String token = tokenConfig.generateToken(userEntity);
 
             return ResponseEntity.ok(new LoginResponse(token));
 
@@ -67,19 +63,8 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<RegisterUserResponse> register(@Valid @RequestBody RegisterUserRequest userRequest){
-        if (userRepository.existsByEmail(userRequest.email())) {
-            return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body(new RegisterUserResponse("Erro: Usuário já registrado com este email", userRequest.email()));
-        }
-
-        User newUser = new User();
-        newUser.setPassword(passwordEncoder.encode(userRequest.password()));
-        newUser.setEmail(userRequest.email());
-        newUser.setName(userRequest.name());
-
-        userRepository.save(newUser);
 
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(new RegisterUserResponse(newUser.getName(), newUser.getEmail()));
+                .body(authUseCase.registerUseCase(userRequest));
     }
 }

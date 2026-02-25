@@ -1,6 +1,6 @@
 package com.allgoosd.security.infrastruct.config.security;
 
-import com.allgoosd.security.domain.User;
+import com.allgoosd.security.infrastruct.persistence.entity.UserEntity;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,10 +21,10 @@ public class TokenConfig {
         this.algorithm = Algorithm.HMAC256(secret);
     }
 
-    public String generateToken(User user){
+    public String generateToken(UserEntity userEntity){
         return JWT.create()
-                .withClaim("userid", user.getId())
-                .withSubject(user.getEmail())
+                .withClaim("userid", userEntity.getId())
+                .withSubject(userEntity.getEmail())
                 .withExpiresAt(Instant.now().plusSeconds(86400))
                 .withIssuedAt(Instant.now())
                 .sign(algorithm);

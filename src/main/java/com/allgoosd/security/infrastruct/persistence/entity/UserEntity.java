@@ -1,8 +1,10 @@
-package com.allgoosd.security.domain;
+package com.allgoosd.security.infrastruct.persistence.entity;
 
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,7 +16,9 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name = "users")
-public class User implements UserDetails {
+@AllArgsConstructor
+@NoArgsConstructor
+public class UserEntity implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

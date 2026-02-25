@@ -1,7 +1,7 @@
 package com.allgoosd.security.infrastruct.config.security;
 
 
-import com.allgoosd.security.infrastruct.persistence.repository.UserRepository;
+import com.allgoosd.security.infrastruct.persistence.repository.UserRepositoryConcret;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -10,9 +10,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthConfig implements UserDetailsService {
 
-    private final UserRepository userRepository;
+    private final UserRepositoryConcret userRepository;
 
-    public AuthConfig(UserRepository userRepository) {
+    public AuthConfig(UserRepositoryConcret userRepository) {
         this.userRepository = userRepository;
     }
 
