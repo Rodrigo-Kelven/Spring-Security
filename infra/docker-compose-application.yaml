@@ -7,13 +7,13 @@ services:
       context: ..
       dockerfile: Dockerfile
     ports:
-      - "${SERVER_PORT:-8181}:8181"
+      - "8181:8181"
     environment:
       JWT_SECRET: ${JWT_SECRET}
       SPRING_PROFILES_ACTIVE: docker
-      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
-      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
-      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
+      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL:-postgresql://postgres_db:5432/securitysecurity}
+      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME:-security-user}
+      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD:-security-password}
     networks:
       - application-allgoods-service-security
 
