@@ -1,4 +1,4 @@
-package com.application.security.infrastruct.dto.response;
+package com.application.security.domain.dto.response;
 
 public record RegisterUserResponse(
         String name,

@@ -1,9 +1,8 @@
-package com.application.security.infrastruct.dto.request;
+package com.application.security.domain.dto.request;
 
 import jakarta.validation.constraints.NotEmpty;
 
-public record RegisterUserRequest(
-        @NotEmpty(message = "Name é obrigatório") String name,
+public record LoginRequest(
         @NotEmpty(message = "Email é obrigatório.") String email,
         @NotEmpty(message = "Senha é obrigatória") String password
 ) {

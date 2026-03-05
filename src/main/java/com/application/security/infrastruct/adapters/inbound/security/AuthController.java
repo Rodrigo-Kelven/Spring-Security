@@ -2,9 +2,9 @@ package com.application.security.infrastruct.adapters.inbound.security;
 
 
 import com.application.security.application.ports.inbound.AuthUseCase;
-import com.application.security.infrastruct.dto.request.LoginRequest;
-import com.application.security.infrastruct.dto.request.RegisterUserRequest;
-import com.application.security.infrastruct.dto.response.RegisterUserResponse;
+import com.application.security.domain.dto.request.LoginRequest;
+import com.application.security.domain.dto.request.RegisterUserRequest;
+import com.application.security.domain.dto.response.RegisterUserResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
