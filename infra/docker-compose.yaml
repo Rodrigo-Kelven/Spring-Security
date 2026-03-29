@@ -5,15 +5,15 @@ services:
     container_name: postgres_db
     restart: always
     environment:
-      POSTGRES_DB: ${SPRING_DATASOURCE_DATABASE:-securitysecurity}
-      POSTGRES_USER: ${SPRING_DATASOURCE_USERNAME:-security-user}
-      POSTGRES_PASSWORD: ${SPRING_DATASOURCE_PASSWORD:-security-password}
+      POSTGRES_DB: ${SPRING_DATASOURCE_DATABASE:-databasesecurityserver}
+      POSTGRES_USER: ${SPRING_DATASOURCE_USERNAME:-dev_user}
+      POSTGRES_PASSWORD: ${SPRING_DATASOURCE_PASSWORD:-dev_password_123}
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
-      - application-allgoods-service-security
+      - application-service-security
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "postgres"]
       interval: 30s
@@ -33,13 +33,13 @@ services:
     depends_on:
       - postgres
     networks:
-      - application-allgoods-service-security
+      - application-service-security
 
 
 networks:
-  application-allgoods-service-security:
+  application-service-security:
     driver: bridge
-    name: application-allgoods-service-security
+    name: application-service-security
     internal: false
 
 volumes:
